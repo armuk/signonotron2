@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926134720) do
+ActiveRecord::Schema.define(:version => 20131008141914) do
 
   create_table "batch_invitation_users", :force => true do |t|
     t.integer  "batch_invitation_id"
@@ -91,6 +91,25 @@ ActiveRecord::Schema.define(:version => 20130926134720) do
 
   add_index "oauth_applications", ["name"], :name => "unique_application_name", :unique => true
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
+
+  create_table "organisations", :force => true do |t|
+    t.text     "api_id"
+    t.text     "web_url"
+    t.string   "name"
+    t.string   "organisation_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "organisations_users", :force => true do |t|
+    t.integer  "organisation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "organisations_users", ["organisation_id"], :name => "index_organisations_users_on_organisation_id"
+  add_index "organisations_users", ["user_id"], :name => "index_organisations_users_on_user_id"
 
   create_table "permissions", :force => true do |t|
     t.integer  "user_id"
